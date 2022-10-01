@@ -25,29 +25,29 @@ impl Direction {
 }
 
 #[derive(Debug, Clone)]
-struct Block {
-    x: i32,
-    y: i32,
+pub struct Block {
+    pub x: i32,
+    pub y: i32,
 }
 
 impl Block {
     pub fn neighbour(&self, dir: Direction) -> Block {
         match dir {
             Direction::Up => Block {
-                x: self.x - 1,
-                y: self.y,
-            },
-            Direction::Down => Block {
-                x: self.x + 1,
-                y: self.y,
-            },
-            Direction::Left => Block {
                 x: self.x,
                 y: self.y - 1,
             },
-            Direction::Right => Block {
+            Direction::Down => Block {
                 x: self.x,
                 y: self.y + 1,
+            },
+            Direction::Left => Block {
+                x: self.x - 1,
+                y: self.y,
+            },
+            Direction::Right => Block {
+                x: self.x + 1,
+                y: self.y,
             },
         }
     }
@@ -81,6 +81,10 @@ impl Snake {
     pub fn head_position(&self) -> &Block {
         let head_block = self.body.front().unwrap();
         head_block
+    }
+
+    pub fn head_direction(&self) -> Direction {
+        self.direction
     }
 
     pub fn move_forward(&mut self, dir: Option<Direction>) {
