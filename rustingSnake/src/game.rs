@@ -46,13 +46,7 @@ impl Game {
             return;
         }
 
-        let dir = match key {
-            Key::Up => Some(Direction::Up),
-            Key::Down => Some(Direction::Down),
-            Key::Left => Some(Direction::Left),
-            Key::Right => Some(Direction::Right),
-            _ => None,
-        };
+        let dir = key2dir(key);
         if dir.unwrap() == self.snake.head_direction().opposite() {
             return;
         }
@@ -146,5 +140,15 @@ impl Game {
         self.food_x = 4;
         self.food_y = 6;
         self.game_over = false;
+    }
+}
+
+fn key2dir(key: Key) -> Option<Direction> {
+    match key {
+        Key::Up => Some(Direction::Up),
+        Key::Down => Some(Direction::Down),
+        Key::Left => Some(Direction::Left),
+        Key::Right => Some(Direction::Right),
+        _ => None,
     }
 }
